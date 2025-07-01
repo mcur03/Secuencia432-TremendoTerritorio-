@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 10000;
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.send('Servidor funcionando correctamente');
 });
 
