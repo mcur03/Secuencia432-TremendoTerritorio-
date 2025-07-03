@@ -3,6 +3,10 @@ import bodyParser from 'body-parser';
 import dotenv from "dotenv";
 import cors from 'cors';
 
+
+import authRoutes from './src/routes/authRouter/authRouter';
+import imagesRouter from "./src/routes/authRouter/imagesRouter";
+
 dotenv.config();
 
 const app = express();
@@ -17,11 +21,10 @@ app.get('/', (_req, res) => {
   res.send('Servidor funcionando correctamente');
 });
 
-// Error handling
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error('Error:', err);
-  res.status(500).json({ error: 'Internal Server Error', details: err.message });
-});
+app.use('/api', imagesRouter);
+app.use('/api/auth', authRoutes);
+
+
 
 app.listen(PORT, () => {
   console.log(`Servidor ejecutándose en el puerto: ${PORT}`);
