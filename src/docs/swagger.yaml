@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: Tremendo Territorio Auth API
+  version: 1.0.0
+  description: Documentación de los endpoints de autenticación por imagen y PIN
+
+servers:
+  - url: http://localhost:10101/api
+    description: Servidor local
+
+tags:
+  - name: Login
+    description: Endpoints para autenticación
+
+paths:
+  /auth/login/start:
+    post:
+      tags:
+        - Login
+      summary: Iniciar login solicitando las imágenes de autenticación
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+              properties:
+                username:
+                  type: string
+                  example: capella01
+      responses:
+        '200':
+          description: Lista de imágenes incluyendo la del usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  images:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        cloudinary_url:
+                          type: string
+        '400':
+          description: Usuario no encontrado o error de validación
+
+  /auth/login/complete:
+    post:
+      tags:
+        - Login
+      summary: Completar login seleccionando imagen y digitando PIN
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - selectedImageId
+                - pin
+              properties:
+                username:
+                  type: string
+                  example: capella01
+                selectedImageId:
+                  type: integer
+                  example: 1
+                pin:
+                  type: string
+                  example: "1234"
+      responses:
+        '200':
+          description: Login exitoso, token generado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '400':
+          description: PIN o imagen incorrecta, o usuario bloqueado
