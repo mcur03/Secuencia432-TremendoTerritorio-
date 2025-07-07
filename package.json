@@ -2,6 +2,9 @@
   "name": "tremendoterritorio-backend",
   "version": "1.0.0",
   "description": "Backend API para Tremendo Territorio",
+  "engines": {
+    "node": "22"
+  },
   "homepage": "https://github.com/mcur03/Secuencia432-TremendoTerritorio-#readme",
   "bugs": {
     "url": "https://github.com/mcur03/Secuencia432-TremendoTerritorio-/issues"
@@ -15,7 +18,9 @@
   "type": "commonjs",
   "main": "dist/app.js",
   "scripts": {
+    "build": "tsc",
     "start": "node dist/app.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
