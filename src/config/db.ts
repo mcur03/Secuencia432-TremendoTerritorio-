@@ -18,5 +18,14 @@ const db = mysql.createPool({
   ssl: sslConfig
 });
 
+// Probar la conexión
+db.getConnection((err, connection) => {
+  if (err) {
+    console.error('❌ Error al conectar con la base de datos:', err.message);
+  } else {
+    console.log('✅ Conexión a la base de datos exitosa.');
+    connection.release(); // Liberar la conexión al pool
+  }
+});
   
 export default db.promise();
