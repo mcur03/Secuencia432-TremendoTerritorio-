@@ -7,7 +7,7 @@ info:
 servers:
   - url: http://localhost:10101/api
     description: Servidor local
-  - url: https://secuencia432-tremendoterritorio-production.up.railway.app/api/docs/
+  - url: https://secuencia432-tremendoterritorio-production.up.railway.app/api
     description: Servidor de producción
 
 tags:
