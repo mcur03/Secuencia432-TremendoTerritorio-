@@ -40,8 +40,7 @@ class AuthService {
         console.log('PIN ingresado:', data.pin);
 
         const isImageCorrect = user.selected_image_id === Number(data.selectedImageId);
-        const isPinCorrect = String(data.pin).trim() === String(user.pin).trim();
-        // const isPinCorrect = await bcrypt.compare(data.pin, user.pin);
+        const isPinCorrect = await bcrypt.compare(String(data.pin).trim(), String(user.pin).trim());
 
         console.log('Imagen correcta?', isImageCorrect);
         console.log('PIN correcto?', isPinCorrect);

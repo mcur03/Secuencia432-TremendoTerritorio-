@@ -7,6 +7,7 @@ import YAML from 'yamljs';
 
 import authRoutes from './src/routes/authRouter/authRouter';
 import imagesRouter from "./src/routes/authRouter/imagesRouter";
+import registerUserRoutes from "./src/routes/userRouter/registerUserRouter"
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.get('/', (_req, res) => {
 
 app.use('/api', imagesRouter);
 app.use('/api/auth', authRoutes);
+app.use('/api', registerUserRoutes);
 
 
 

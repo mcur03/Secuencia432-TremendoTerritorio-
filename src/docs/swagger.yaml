@@ -15,6 +15,7 @@ tags:
     description: Endpoints para autenticación
 
 paths:
+# Login
   /auth/login/start:
     post:
       tags:
@@ -91,4 +92,95 @@ paths:
                     type: string
                     example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
         '400':
-          description: PIN o imagen incorrecta, o usuario bloqueado
+            description: PIN o imagen incorrecta, o usuario bloqueado
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      description: Mensaje de confirmación.
+                      example: "PIN o imagen incorrecta, o usuario bloqueado"
+
+# Registro
+  /register/get-images:
+    get:
+      tags:
+        - Registro de Usuario
+      summary: Obtener imágenes aleatorias disponibles para selección
+      description: Retorna 3 imágenes que aún no están asignadas a ningún usuario.
+      responses:
+        '200':
+          description: Lista de imágenes disponibles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  images:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 5
+                        cloudinary_url:
+                          type: string
+                          example: https://res.cloudinary.com/demo/image/upload/sample.jpg
+        '500':
+          description: Error del servidor
+  /register:
+    post:
+      tags:
+        - Registro de Usuario
+      summary: Registrar un nuevo usuario
+      description: Registra un usuario nuevo con nombre de usuario, email, PIN y una imagen no usada.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - email
+                - pin
+                - selectedImageId
+              properties:
+                username:
+                  type: string
+                  example: capella02
+                email:
+                  type: string
+                  format: email
+                  example: capella02@email.com
+                pin:
+                  type: string
+                  example: "1234"
+                selectedImageId:
+                  type: integer
+                  example: 2
+      responses:
+        '201':
+          description: Usuario registrado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Usuario registrado con éxito
+        '400':
+          description: Error de validación o imagen ya usada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: La imagen ya está asociada a otro usuario
+
