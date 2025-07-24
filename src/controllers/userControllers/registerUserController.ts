@@ -13,10 +13,11 @@ export class RegisterUserController {
 
   static async register(req: Request, res: Response) {
     try {
-      await RegisterUserService.register(req.body);
-      res.status(201).json({ message: 'Usuario registrado con éxito' });
-    } catch (err: any) {
-      res.status(400).json({ error: err.message });
+      const userData = req.body;
+      const result = await RegisterUserService.register(userData);
+      res.status(201).json({ message: 'Usuario registrado con éxito', result });
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
     }
   }
 }

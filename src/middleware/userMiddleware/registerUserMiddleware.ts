@@ -3,16 +3,19 @@ import { body, validationResult } from 'express-validator';
 
 // Middleware de validación
 const validateRequest: RequestHandler[] = [
-    body('username')
+    body('nombre')
         .notEmpty().withMessage('El campo username es obligatorio'),
 
     body('email')
         .notEmpty().withMessage('El campo email es obligatorio')
         .isEmail().withMessage('El campo email debe ser un email válido'),
 
-    body('pin')
-        .notEmpty().withMessage('El campo pin es obligatorio')
-        .isLength({ min: 4, max: 4 }).withMessage('El PIN debe tener exactamente 4 caracteres'),
+    body('cedula')
+        .notEmpty().withMessage('El campo cedula es obligatorio')
+        .isLength({ min: 10, max: 10 }).withMessage('La cédula debe tener exactamente 10 caracteres'),
+
+    body('rol')
+        .notEmpty().withMessage('El campo rol es obligatorio'),
 
     body('selectedImageId')
         .notEmpty().withMessage('El campo selectedImageId es obligatorio'),

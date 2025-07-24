@@ -1,9 +1,8 @@
 export interface StartLoginDto {
-    username: string;
+    pin: string;
 }
 
 export interface CompleteLoginDto {
-    username: string;
     selectedImageId: number;
     pin: string;
 }

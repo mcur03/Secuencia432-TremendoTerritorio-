@@ -1,6 +1,8 @@
+
 export interface RegisterDto {
-  username: string;
+  nombre: string;
   email: string;
-  pin: string;
+  cedula: string;
   selectedImageId: number;
+  rol: 'campesino' | 'restaurante' | 'usuariofinal' | 'administrador';
 }

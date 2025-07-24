@@ -28,11 +28,11 @@ paths:
             schema:
               type: object
               required:
-                - username
+                - pin
               properties:
-                username:
+                pin:
                   type: string
-                  example: capella01
+                  example: "1234"
       responses:
         '200':
           description: Lista de imágenes incluyendo la del usuario
@@ -67,13 +67,9 @@ paths:
             schema:
               type: object
               required:
-                - username
                 - selectedImageId
                 - pin
               properties:
-                username:
-                  type: string
-                  example: capella01
                 selectedImageId:
                   type: integer
                   example: 1
@@ -144,24 +140,28 @@ paths:
             schema:
               type: object
               required:
-                - username
+                - nombre
                 - email
-                - pin
+                - cedula
                 - selectedImageId
+                - rol
               properties:
-                username:
+                nombre:
                   type: string
-                  example: capella02
+                  example: Capella
                 email:
                   type: string
                   format: email
-                  example: capella02@email.com
-                pin:
+                  example: capella01@email.com
+                cedula:
                   type: string
-                  example: "1234"
+                  example: "1234567890"
                 selectedImageId:
                   type: integer
                   example: 2
+                rol:
+                  type: string
+                  example: "usuariofinal"
       responses:
         '201':
           description: Usuario registrado con éxito
