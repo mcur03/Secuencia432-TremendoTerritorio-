@@ -1,4 +1,5 @@
 import db from '../../config/db';
+import { RegisterDto } from '../../dto/UserDto/registerDto';
 
 class RegisterUserRepository {
 
@@ -10,11 +11,22 @@ class RegisterUserRepository {
     return rows.length > 0;
   }
 
-  static async registerUser(username: string, email: string, hashedPin: string, imageId: number) {
-    await db.query(
-      `INSERT INTO users (username, email, pin, selected_image_id) VALUES (?, ?, ?, ?)`,
-      [username, email, hashedPin, imageId]
-    );
+  static async registerUser(user: RegisterDto, hashedPin: string) {
+    const query = `
+      INSERT INTO users (username, email, cedula, pin, selected_image_id, rol)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `;
+    const values = [
+      user.nombre,
+      user.email,
+      user.cedula,
+      hashedPin,
+      user.selectedImageId,
+      user.rol
+    ];
+
+    const [result] = await db.query(query, values);
+    return result;
   }
 
   static async getAvailableImages(limit = 3) {
@@ -27,6 +39,16 @@ class RegisterUserRepository {
       LIMIT ?
     `, [limit]);
     return rows;
+  }
+
+  static async isEmailTaken(email: string) {
+    const [rows] = await db.query('SELECT id FROM users WHERE email = ?', [email]);
+    return Array.isArray(rows) && rows.length > 0;
+  }
+
+  static async isCedulaTaken(cedula: string) {
+    const [rows] = await db.query('SELECT id FROM users WHERE cedula = ?', [cedula]);
+    return Array.isArray(rows) && rows.length > 0;
   }
 }
 

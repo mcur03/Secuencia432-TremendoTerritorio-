@@ -144,24 +144,28 @@ paths:
             schema:
               type: object
               required:
-                - username
+                - nombre
                 - email
-                - pin
+                - cedula
                 - selectedImageId
+                - rol
               properties:
-                username:
+                nombre:
                   type: string
-                  example: capella02
+                  example: Capella
                 email:
                   type: string
                   format: email
-                  example: capella02@email.com
-                pin:
+                  example: capella01@email.com
+                cedula:
                   type: string
-                  example: "1234"
+                  example: "1234567890"
                 selectedImageId:
                   type: integer
                   example: 2
+                rol:
+                  type: string
+                  example: "usuariofinal"
       responses:
         '201':
           description: Usuario registrado con éxito
