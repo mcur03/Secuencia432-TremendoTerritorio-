@@ -7,52 +7,66 @@ import { generateToken } from '../../utils/jwt';
 dotenv.config();
 
 class AuthService {
+    //ejemplo
     static async getAllImages() {
         return await AuthRepository.getAll();
     }
 
     static async startLogin(data: StartLoginDto) {
-        const user = await AuthRepository.findUserByUsername(data.username);
-        if (!user) throw new Error('Usuario no encontrado');
 
-        const distractors = await AuthRepository.getUserImageAndDistractors(user.selected_image_id);
-        const realImage = await AuthRepository.getImageById(user.selected_image_id);
+        const users = await AuthRepository.getAllUsers();
+
+        let foundUser = null;
+        for (const user of users) {
+            const isMatch = await bcrypt.compare(data.pin, user.pin);
+            if (isMatch) {
+                foundUser = user;
+                break;
+            }
+        }
+        if (!foundUser) throw new Error('PIN incorrecto');
+
+        const distractors = await AuthRepository.getUserImageAndDistractors(foundUser.selected_image_id);
+        const realImage = await AuthRepository.getImageById(foundUser.selected_image_id);
 
         return {
-            username: user.username,
+            pin: data.pin,
             images: [...distractors, realImage].sort(() => Math.random() - 0.5),
         };
     }
 
+
     static async completeLogin(data: CompleteLoginDto) {
-        const user = await AuthRepository.findUserByUsername(data.username);
-        console.log('Usuario encontrado:', user);
-        if (!user) throw new Error('Usuario no encontrado');
+        const users = await AuthRepository.getAllUsers();
+
+        let foundUser = null;
+        for (const user of users) {
+            const isMatch = await bcrypt.compare(data.pin, user.pin);
+            if (isMatch) {
+                foundUser = user;
+                break;
+            }
+        }
+
+        if (!foundUser) throw new Error('PIN incorrecto');
 
         const now = new Date();
-        if (user.locked_until && new Date(user.locked_until) > now) {
+        if (foundUser.locked_until && new Date(foundUser.locked_until) > now) {
             throw new Error('Usuario bloqueado temporalmente. Intenta más tarde.');
         }
 
-        console.log('Selected image (user):', user.selected_image_id);
-        console.log('Selected image (input):', data.selectedImageId);
-        console.log('PIN en BD:', user.pin);
-        console.log('PIN ingresado:', data.pin);
-
-        const isImageCorrect = user.selected_image_id === Number(data.selectedImageId);
-        const isPinCorrect = await bcrypt.compare(String(data.pin).trim(), String(user.pin).trim());
-
-        console.log('Imagen correcta?', isImageCorrect);
-        console.log('PIN correcto?', isPinCorrect);
+        const isImageCorrect = foundUser.selected_image_id === Number(data.selectedImageId);
+        const isPinCorrect = await bcrypt.compare(data.pin, foundUser.pin);
 
         if (isImageCorrect && isPinCorrect) {
-            await AuthRepository.resetLoginAttempts(user.id);
-            return generateToken({ id: user.id, username: user.username });
+            await AuthRepository.resetLoginAttempts(foundUser.id);
+            return generateToken({ id: foundUser.id, username: foundUser.username });
         } else {
-            await AuthRepository.incrementFailedAttempts(user.id);
+            await AuthRepository.incrementFailedAttempts(foundUser.id);
             throw new Error('PIN o imagen incorrecta');
         }
     }
+
 }
 
 export default AuthService;

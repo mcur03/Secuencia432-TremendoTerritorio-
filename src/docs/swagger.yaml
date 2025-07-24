@@ -28,11 +28,11 @@ paths:
             schema:
               type: object
               required:
-                - username
+                - pin
               properties:
-                username:
+                pin:
                   type: string
-                  example: capella01
+                  example: "1234"
       responses:
         '200':
           description: Lista de imágenes incluyendo la del usuario
@@ -67,13 +67,9 @@ paths:
             schema:
               type: object
               required:
-                - username
                 - selectedImageId
                 - pin
               properties:
-                username:
-                  type: string
-                  example: capella01
                 selectedImageId:
                   type: integer
                   example: 1

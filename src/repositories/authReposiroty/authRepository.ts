@@ -1,5 +1,6 @@
 import db from '../../config/db';
 import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
 import Images from '../../dto/authDto/Images';
 import { RowDataPacket } from 'mysql2';
 
@@ -9,15 +10,25 @@ class AuthRepository {
     static async login() {
 
     }
+    // ejemplo
     static async getAll() {
         const sql = `SELECT * FROM auth_images`;
         const [rows] = await db.query(sql);
         return rows as Images[];
     }
-    static async findUserByUsername(username: string) {
-        const [rows] = await db.query<RowDataPacket[]>('SELECT * FROM users WHERE username = ?', [username]);
-        return Array.isArray(rows) ? rows[0] : null;
+
+    static async findUserByPin(pin: string) {
+        const [rows] = await db.query<RowDataPacket[]>('SELECT * FROM users');
+        return (rows as any[]).find(async (user) => await bcrypt.compare(pin, user.pin));
     }
+
+
+    static async getAllUsers() {
+        const [rows] = await db.query<RowDataPacket[]>('SELECT * FROM users');
+        return rows;
+    }
+
+
 
     static async getUserImageAndDistractors(selectedImageId: number) {
         const [rows] = await db.query<RowDataPacket[]>(

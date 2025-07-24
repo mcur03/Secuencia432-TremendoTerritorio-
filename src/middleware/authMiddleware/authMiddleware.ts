@@ -3,16 +3,13 @@ import { body, validationResult } from 'express-validator';
 
 // Middleware de validación
 const validateRequest: RequestHandler[] = [
-    body('username')
-        .notEmpty().withMessage('El campo username es obligatorio'),
-
     body('selectedImageId')
         .notEmpty().withMessage('Debe seleccionar una imagen')
         .isNumeric().withMessage('El ID de la imagen debe ser numérico'),
 
     body('pin')
         .notEmpty().withMessage('El campo pin es obligatorio')
-        .isLength({ min: 4 }).withMessage('El PIN debe tener al menos 4 caracteres'),
+        .isLength({ min: 4, max: 4 }).withMessage('El PIN debe tener exactamente 4 caracteres'),
 
     (req: Request, res: Response, next: NextFunction): void => {
         const errors = validationResult(req);
