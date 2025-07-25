@@ -8,6 +8,7 @@ import YAML from 'yamljs';
 import authRoutes from './src/routes/authRouter/authRouter';
 import imagesRouter from "./src/routes/authRouter/imagesRouter";
 import registerUserRoutes from "./src/routes/userRouter/registerUserRouter"
+import hashPin from './src/routes/botWhatsapp/hashPinRouter'
 
 dotenv.config();
 
@@ -30,6 +31,9 @@ app.get('/', (_req, res) => {
 app.use('/api', imagesRouter);
 app.use('/api/auth', authRoutes);
 app.use('/api', registerUserRoutes);
+
+// Rutas del bot de WhatsApp para hashear el PIN
+app.use('/api/botWhatsapp', hashPin);
 
 
 
