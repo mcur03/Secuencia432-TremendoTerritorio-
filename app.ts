@@ -35,7 +35,7 @@ app.use('/api', registerUserRoutes);
 // Rutas del bot de WhatsApp para hashear el PIN
 app.use('/api/botWhatsapp', hashPin);
 
-
+// https://secuencia432-tremendoterritorio-production.up.railway.app/api/botWhatsapp/register/hash-pin
 
 app.listen(PORT, () => {
   console.log(`Servidor ejecutándose en el puerto: ${PORT}`);
