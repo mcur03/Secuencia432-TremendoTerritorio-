@@ -141,21 +141,29 @@ paths:
               type: object
               required:
                 - nombre
+                - apellido
                 - email
                 - cedula
+                - telefono
                 - selectedImageId
                 - rol
               properties:
                 nombre:
                   type: string
-                  example: Capella
+                  example: Camila
+                apellido:
+                  type: string
+                  example: "Uribe"
                 email:
                   type: string
                   format: email
-                  example: capella01@email.com
+                  example: camila01@email.com
                 cedula:
                   type: string
                   example: "1234567890"
+                telefono:
+                  type: string
+                  example: "3001234567"
                 selectedImageId:
                   type: integer
                   example: 2

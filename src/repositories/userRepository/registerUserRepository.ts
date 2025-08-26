@@ -13,13 +13,15 @@ class RegisterUserRepository {
 
   static async registerUser(user: RegisterDto, hashedPin: string) {
     const query = `
-      INSERT INTO users (username, email, cedula, pin, selected_image_id, rol)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `;
+    INSERT INTO users (nombre, apellido, email, cedula, telefono, pin, selected_image_id, rol)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `;
     const values = [
       user.nombre,
+      user.apellido,
       user.email,
       user.cedula,
+      user.telefono,
       hashedPin,
       user.selectedImageId,
       user.rol

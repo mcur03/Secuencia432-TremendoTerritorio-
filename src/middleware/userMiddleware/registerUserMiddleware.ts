@@ -14,6 +14,11 @@ const validateRequest: RequestHandler[] = [
         .notEmpty().withMessage('El campo cedula es obligatorio')
         .isLength({ min: 10, max: 10 }).withMessage('La cédula debe tener exactamente 10 caracteres'),
 
+    body('telefono')
+        .notEmpty().withMessage('El campo telefono es obligatorio')
+        .isNumeric().withMessage('El teléfono solo debe contener números')
+        .isLength({ min: 7, max: 15 }).withMessage('El teléfono debe tener minimo 7 y máximo 15 caracteres'),
+
     body('rol')
         .notEmpty().withMessage('El campo rol es obligatorio'),
 
