@@ -1,14 +1,19 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
 import authRoutes from './src/routes/authRouter/authRouter';
 import imagesRouter from "./src/routes/authRouter/imagesRouter";
-import registerUserRoutes from "./src/routes/userRouter/registerUserRouter"
-import hashPin from './src/routes/botWhatsapp/hashPinRouter'
+
+import registerUserRoutes from './src/routes/userRouter/registerUserRouter';
+import hashPin from './src/routes/botWhatsapp/hashPinRouter';
+
+import registerFarmsRoutes from './src/routes/farmsRouter/RegisterFarmsRoutes';
+import updateFarmsRoutes from './src/routes/farmsRouter/UpdateFarmsRoutes';
+
 import uploadImageRouter from './src/routes/botWhatsapp/uploadImageCloudinaryRouter';
 
 dotenv.config();
@@ -31,7 +36,13 @@ app.get('/', (_req, res) => {
 
 app.use('/api', imagesRouter);
 app.use('/api/auth', authRoutes);
+
+// users
 app.use('/api', registerUserRoutes);
+
+// farms
+app.use('/api', registerFarmsRoutes);
+app.use('/api', updateFarmsRoutes);
 
 // Rutas del bot de WhatsApp para hashear el PIN
 app.use('/api/botWhatsapp', hashPin);
