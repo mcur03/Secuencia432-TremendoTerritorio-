@@ -99,7 +99,7 @@ paths:
                       description: Mensaje de confirmación.
                       example: "PIN o imagen incorrecta, o usuario bloqueado"
 
-# Registro
+# Registro de Usuario
   /register/get-images:
     get:
       tags:
@@ -192,3 +192,56 @@ paths:
                     type: string
                     example: La imagen ya está asociada a otro usuario
 
+# Registro de Fincas
+  /register-farm:
+    post:
+      tags:
+        - Registro de Fincas
+      summary: Registrar una nueva finca
+      description: Registra una nueva finca con los datos proporcionados.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+                - farmName
+              properties:
+                userId:
+                  type: integer
+                  example: 1
+                farmName:
+                  type: string
+                  example: "Finca La Esperanza"
+                history:
+                  type: string
+                  example: "Historia de la finca"
+                location:
+                  type: string
+                  example: "Ubicación de la finca"
+                description:
+                  type: string
+                  example: "Descripción de la finca"
+      responses:
+        '201':
+          description: Finca registrada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Finca registrada con éxito
+        '400':
+          description: Error de validación
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error de validación"
