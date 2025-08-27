@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Tremendo Territorio Auth API
   version: 1.0.0
-  description: Documentación de los endpoints de autenticación por imagen y PIN
+  description: Documentación de los endpoints de Tremendo Territori
 
 servers:
   - url: http://localhost:10101/api
@@ -10,9 +10,12 @@ servers:
   - url: https://secuencia432-tremendoterritorio-production.up.railway.app/api
     description: Servidor de producción
 
-tags:
-  - name: Login
-    description: Endpoints para autenticación
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
 paths:
 # Login
@@ -103,7 +106,7 @@ paths:
   /register/get-images:
     get:
       tags:
-        - Registro de Usuario
+        - Usuario
       summary: Obtener imágenes aleatorias disponibles para selección
       description: Retorna 3 imágenes que aún no están asignadas a ningún usuario.
       responses:
@@ -130,7 +133,7 @@ paths:
   /register:
     post:
       tags:
-        - Registro de Usuario
+        - Usuario
       summary: Registrar un nuevo usuario
       description: Registra un usuario nuevo con nombre de usuario, email, PIN y una imagen no usada.
       requestBody:
@@ -195,8 +198,10 @@ paths:
 # Registro de Fincas
   /register-farm:
     post:
+      security:
+        - bearerAuth: []
       tags:
-        - Registro de Fincas
+        - Fincas
       summary: Registrar una nueva finca
       description: Registra una nueva finca con los datos proporcionados.
       requestBody:
@@ -245,3 +250,62 @@ paths:
                   error:
                     type: string
                     example: "Error de validación"
+
+# Actualizar Finca
+  /update-farm/{id}:
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - Fincas
+      summary: Actualizar una finca existente
+      description: Actualiza los datos de una finca existente identificada por su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID de la finca a actualizar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - farmName
+              properties:
+                farmName:
+                  type: string
+                  example: "Finca La Esperanza Actualizada"
+                history:
+                  type: string
+                  example: "Historia actualizada de la finca"
+                location:
+                  type: string
+                  example: "Ubicación actualizada de la finca"
+                description:
+                  type: string
+                  example: "Descripción actualizada de la finca"
+      responses:
+        '200':
+          description: Finca actualizada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Finca actualizada con éxito
+        '400':
+          description: Error de validación o finca no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error de validación o finca no encontrada"
