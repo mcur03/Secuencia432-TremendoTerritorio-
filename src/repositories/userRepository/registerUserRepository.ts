@@ -13,18 +13,18 @@ class RegisterUserRepository {
 
   static async registerUser(user: RegisterDto, hashedPin: string) {
     const query = `
-    INSERT INTO users (nombre, apellido, email, cedula, telefono, pin, selected_image_id, rol)
+    INSERT INTO users (first_name, last_name, email, id_number, user_phone, pin, selected_image_id, userRole)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `;
     const values = [
-      user.nombre,
-      user.apellido,
+      user.first_name,
+      user.last_name,
       user.email,
-      user.cedula,
-      user.telefono,
+      user.id_number,
+      user.user_phone,
       hashedPin,
       user.selectedImageId,
-      user.rol
+      user.userRole
     ];
 
     const [result] = await db.query(query, values);
@@ -48,8 +48,8 @@ class RegisterUserRepository {
     return Array.isArray(rows) && rows.length > 0;
   }
 
-  static async isCedulaTaken(cedula: string) {
-    const [rows] = await db.query('SELECT id FROM users WHERE cedula = ?', [cedula]);
+  static async isIdNumberTaken(id_number: string) {
+    const [rows] = await db.query('SELECT id FROM users WHERE id_number = ?', [id_number]);
     return Array.isArray(rows) && rows.length > 0;
   }
 }

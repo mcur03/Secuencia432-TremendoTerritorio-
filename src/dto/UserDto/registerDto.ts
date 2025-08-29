@@ -1,10 +1,10 @@
 
 export interface RegisterDto {
-  nombre: string;
-  apellido: string;
+  first_name: string;
+  last_name: string;
   email: string;
-  cedula: string;
-  telefono: string;
+  id_number: string;
+  user_phone: string;
   selectedImageId: number;
-  rol: 'campesino' | 'restaurante' | 'usuariofinal' | 'administrador';
+  userRole: 'campesino' | 'restaurante' | 'usuariofinal' | 'administrador';
 }

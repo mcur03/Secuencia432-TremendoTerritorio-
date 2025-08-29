@@ -143,34 +143,34 @@ paths:
             schema:
               type: object
               required:
-                - nombre
-                - apellido
+                - first_name
+                - last_name
                 - email
-                - cedula
-                - telefono
+                - id_number
+                - user_phone
                 - selectedImageId
-                - rol
+                - userRole
               properties:
-                nombre:
+                first_name:
                   type: string
                   example: Camila
-                apellido:
+                last_name:
                   type: string
                   example: "Uribe"
                 email:
                   type: string
                   format: email
                   example: camila01@email.com
-                cedula:
+                id_number:
                   type: string
                   example: "1234567890"
-                telefono:
+                user_phone:
                   type: string
                   example: "3001234567"
                 selectedImageId:
                   type: integer
                   example: 2
-                rol:
+                userRole:
                   type: string
                   example: "usuariofinal"
       responses:
@@ -220,9 +220,6 @@ paths:
                 farmName:
                   type: string
                   example: "Finca La Esperanza"
-                history:
-                  type: string
-                  example: "Historia de la finca"
                 location:
                   type: string
                   example: "Ubicación de la finca"
@@ -279,9 +276,6 @@ paths:
                 farmName:
                   type: string
                   example: "Finca La Esperanza Actualizada"
-                history:
-                  type: string
-                  example: "Historia actualizada de la finca"
                 location:
                   type: string
                   example: "Ubicación actualizada de la finca"
@@ -309,3 +303,124 @@ paths:
                   error:
                     type: string
                     example: "Error de validación o finca no encontrada"
+
+# Buscar todas las Fincas
+  /get-all-farms:
+    get:
+      tags:
+        - Fincas
+      summary: Obtener todas las fincas
+      description: Devuelve una lista de todas las fincas registradas.
+      responses:
+        '200':
+          description: Lista de fincas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    usuario_id:
+                      type: integer
+                      example: 1
+                    nombre_finca:
+                      type: string
+                      example: "Finca La Esperanza"
+                    ubicacion:
+                      type: string
+                      example: "Ubicación de la finca"
+                    descripcion:
+                      type: string
+                      example: "Descripción de la finca"
+        '404':
+          description: No se encontraron fincas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No se encontraron fincas"
+
+# Buscar Finca por Id
+  /get-by-id-farm/{idFarm}:
+    get:
+      tags:
+        - Fincas
+      summary: Obtener una finca por su ID
+      description: Devuelve los detalles de una finca específica identificada por su ID.
+      parameters:
+        - name: idFarm
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID de la finca a buscar
+      responses:
+        '200':
+          description: Detalles de la finca
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                    id:
+                      type: integer
+                      example: 1
+                    usuario_id:
+                      type: integer
+                      example: 1
+                    nombre_finca:
+                      type: string
+                      example: "Finca La Esperanza"
+                    ubicacion:
+                      type: string
+                      example: "Ubicación de la finca"
+                    descripcion:
+                      type: string
+                      example: "Descripción de la finca"
+        '404':
+          description: Finca no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Finca no encontrada"
+
+# Eliminar Finca
+  /delete-farm/{idFarm}:
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Fincas
+      summary: Eliminar una finca por su ID
+      description: Elimina una finca específica identificada por su ID.
+      parameters:
+        - name: idFarm
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID de la finca a eliminar
+      responses:
+        '204':
+          description: Finca eliminada con éxito
+        '404':
+          description: Finca no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Finca no encontrada"

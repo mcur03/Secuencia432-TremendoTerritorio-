@@ -13,6 +13,9 @@ import hashPin from './src/routes/botWhatsapp/hashPinRouter';
 
 import registerFarmsRoutes from './src/routes/farmsRouter/RegisterFarmsRoutes';
 import updateFarmsRoutes from './src/routes/farmsRouter/UpdateFarmsRoutes';
+import getAllFarmsRoutes from './src/routes/farmsRouter/GetAllFarmsRoutes';
+import getByIdFarmRoutes from './src/routes/farmsRouter/GetByIdFarmRoute';
+import deleteFarmRoutes from './src/routes/farmsRouter/DeleteFarmsRoute';
 
 import uploadImageRouter from './src/routes/botWhatsapp/uploadImageCloudinaryRouter';
 
@@ -43,6 +46,9 @@ app.use('/api', registerUserRoutes);
 // farms
 app.use('/api', registerFarmsRoutes);
 app.use('/api', updateFarmsRoutes);
+app.use('/api', getAllFarmsRoutes);
+app.use('/api', getByIdFarmRoutes);
+app.use('/api', deleteFarmRoutes);
 
 // Rutas del bot de WhatsApp para hashear el PIN
 app.use('/api/botWhatsapp', hashPin);

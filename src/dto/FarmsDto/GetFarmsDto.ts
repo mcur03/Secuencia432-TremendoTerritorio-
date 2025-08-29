@@ -1,5 +1,5 @@
-export interface UpdateFarmDto {
-  id: number;
+export interface GetFarmDto {
+  userId: number;
   farmName: string;
   location?: string;
   description?: string;

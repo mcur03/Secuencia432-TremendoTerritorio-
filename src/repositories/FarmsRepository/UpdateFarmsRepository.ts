@@ -5,13 +5,12 @@ export class UpdateFarmRepository {
   static async updateFarm(data: UpdateFarmDto) {
     const query = `
       UPDATE fincas
-      SET nombre_finca = ?, historia = ?, ubicacion = ?, descripcion = ?
+      SET nombre_finca = ?, ubicacion = ?, descripcion = ?
       WHERE id = ?
     `;
 
     const values = [
       data.farmName,
-      data.history || null,
       data.location || null,
       data.description || null,
       data.id
