@@ -6,8 +6,8 @@ dotenv.config();
 
 interface JwtPayload {
     id: number;
-    cedula: string;
-    rol: string;
+    id_number: string;
+    userRole: string;
     iat: number;
     exp: number;
 }

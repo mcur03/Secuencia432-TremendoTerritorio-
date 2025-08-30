@@ -60,7 +60,7 @@ class AuthService {
 
         if (isImageCorrect && isPinCorrect) {
             await AuthRepository.resetLoginAttempts(foundUser.id);
-            return generateToken({ id: foundUser.id, cedula: foundUser.cedula, rol: foundUser.rol });
+            return generateToken({ id: foundUser.id, id_number: foundUser.id_number, userRole: foundUser.userRole });
         } else {
             await AuthRepository.incrementFailedAttempts(foundUser.id);
             throw new Error('PIN o imagen incorrecta');

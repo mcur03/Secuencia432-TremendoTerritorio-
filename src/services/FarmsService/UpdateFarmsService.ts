@@ -1,7 +1,17 @@
-import { UpdateFarmDto } from "../../dto/FarmsDto/UpdateFarmsDto";
+import UpdateFarmDto from "../../dto/FarmsDto/UpdateFarmsDto";
 import { UpdateFarmRepository } from "../../repositories/FarmsRepository/UpdateFarmsRepository";
 
 export class UpdateFarmsService {
+
+  static async updateFarmCampesino(farm: UpdateFarmDto, userId: number) {
+    try {
+      const result = await UpdateFarmRepository.updateFarmCampesino(farm, userId);
+      return result;
+    } catch (error) {
+      throw new Error("Error updating farm: " + (error as Error).message);
+    }
+  }
+
   static async updateFarm(farm: UpdateFarmDto) {
     console.log('Service!!!!!', farm);
 

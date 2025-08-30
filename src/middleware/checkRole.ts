@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 
 const checkRole = (roles: string[]) => {
     return (req: Request, res: Response, next: NextFunction): void => {
-        const userRole = req.user?.rol;
+        const userRole = req.user?.userRole;
 
         if (!userRole || !roles.includes(userRole)) {
             res.status(403).json({ error: "No tienes permisos para realizar esta acción" });

@@ -1,19 +1,24 @@
 import { Request, Response } from 'express';
 import { UpdateFarmsService } from '../../services/FarmsService/UpdateFarmsService';
-import type { UpdateFarmDto } from '../../dto/FarmsDto/UpdateFarmsDto';
+import UpdateFarmDto from '../../dto/FarmsDto/UpdateFarmsDto';
 
 export class UpdateFarmController {
   static async updateFarm(req: Request, res: Response) {
     try {
+      const userRole = req.body.role;
+      const userId = req.body.id;
       const { id } = req.params; // viene desde la URL
       const data = req.body;
 
-      const updatedFarm = await UpdateFarmsService.updateFarm({ id, ...data } as UpdateFarmDto);
+      const result =
+        userRole === "campesino"
+          ? await UpdateFarmsService.updateFarmCampesino(new UpdateFarmDto(data.id, data.farmName, data.location, data.description), userId)
+          : await UpdateFarmsService.updateFarm(new UpdateFarmDto(data.id, data.farmName, data.location, data.description));
 
-      if (!updatedFarm || updatedFarm.affectedRows === 0) {
-        res.status(404).json({ error: "Cliente no encontrado." });
+      if (!result || result.affectedRows === 0) {
+        res.status(404).json({ error: "Finca no encontrada." });
       } else {
-        res.status(200).json({ status: 'ok, Cliente actualizado con éxito' });
+        res.status(200).json({ status: 'ok, Finca actualizado con éxito' });
       }
 
     } catch (error) {

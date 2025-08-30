@@ -4,7 +4,6 @@ import AuthService from '../../services/authService/authService';
 const getImages = async (_req: Request, res: Response): Promise<void> => {
     try {
         const result = await AuthService.getAllImages();
-        console.log('entro al controlador de imágenes');
         
         if(result.length === 0){
             res.status(404).json({error: 'No hay registros'})

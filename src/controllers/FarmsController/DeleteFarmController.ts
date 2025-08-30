@@ -9,12 +9,10 @@ export class DeleteFarmController {
             const userId = req.body.id;
             const { idFarm } = req.params;
 
-            const id: IdFarmDto = { id: parseInt(idFarm) };
-
             const result =
                 userRole === "campesino"
-                    ? await DeleteFarmService.deleteFarmCampesino(id, userId)
-                    : await DeleteFarmService.deleteFarm(id);
+                    ? await DeleteFarmService.deleteFarmCampesino(new IdFarmDto(idFarm), userId)
+                    : await DeleteFarmService.deleteFarm(new IdFarmDto(idFarm));
 
             if (result === 0) {
                 res.status(404).json({ message: 'Finca no encontrada' });

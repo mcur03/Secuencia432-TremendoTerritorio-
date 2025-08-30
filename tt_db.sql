@@ -1,6 +1,7 @@
 CREATE DATABASE tremendo_territorio;
 USE tremendo_territorio;
 
+
 -- ----- whatsapp_user_states ----------------------------------------------------------------
 CREATE TABLE whatsapp_user_states (
   id SERIAL PRIMARY KEY,
@@ -46,7 +47,7 @@ CREATE TABLE farms (
     farm_description TEXT,
     FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-select * from fincas;
+select * from farms;
 -- ----- restaurants -----------------------------------------------------------------
 CREATE TABLE restaurants (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -120,7 +121,7 @@ CREATE TABLE restaurant_requirements (
     frecuencia ENUM('diaria', 'semanal', 'mensual') DEFAULT 'semanal',
     create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (restaurante_id) REFERENCES restaurantes(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_restaurant) REFERENCES restaurants(id) ON DELETE CASCADE,
     FOREIGN KEY (id_product) REFERENCES products(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_category) REFERENCES product_categories(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -131,11 +132,11 @@ CREATE TABLE comments (
     id_author INT NULL,     
     author_name VARCHAR(150) NOT NULL,
     author_email VARCHAR(5) NULL,
-    rating INT CHECK (calificacion BETWEEN 1 AND 5),
+    rating INT CHECK (rating BETWEEN 1 AND 5),
     comment_text TEXT NOT NULL,
     create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_author) REFERENCES users(id) ON DELETE SET NULL,
-    FOREIGN KEY (id_addressee) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (id_addressee) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- ------ stories -----------------------------------------------------------------------------------
 CREATE TABLE stories (
@@ -146,7 +147,7 @@ CREATE TABLE stories (
     state BOOLEAN DEFAULT TRUE,
     create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- --------------------------------------------------
 

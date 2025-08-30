@@ -7,9 +7,7 @@ export class GetByIdFarmController {
         try {
             const { idFarm } = req.params;
 
-            const id: IdFarmDto = { id: parseInt(idFarm) };
-
-            const result = await GetByIdFarmService.getByIdFarm(id);
+            const result = await GetByIdFarmService.getByIdFarm(new IdFarmDto(idFarm));
             if (result.length === 0) {
                 res.status(404).json({ message: 'Finca no encontrada' });
             } else {

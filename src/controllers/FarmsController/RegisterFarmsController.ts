@@ -5,7 +5,6 @@ export class RegisterFarmsController {
   static async registerFarm(req: Request, res: Response) {
     try {
       const farmData = req.body;
-      console.log("FINCAAA!!!!!!!!!!!!!:", farmData);
 
       const result = await RegisterFarmsService.registerFarm(farmData);
       res.status(201).json({ message: 'Finca registrada con éxito', result });

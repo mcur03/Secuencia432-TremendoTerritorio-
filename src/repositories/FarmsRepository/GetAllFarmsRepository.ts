@@ -4,7 +4,7 @@ import { GetFarmDto } from "../../dto/FarmsDto/GetFarmsDto";
 export class GetAllFarmsRepository {
   static async getAllFarms(): Promise<GetFarmDto[]> {
     const query = `
-      SELECT * FROM fincas
+      SELECT * FROM farms
     `;
     const [result] = await db.execute(query);
     return result as GetFarmDto[];

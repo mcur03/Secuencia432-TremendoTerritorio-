@@ -213,6 +213,8 @@ paths:
               required:
                 - userId
                 - farmName
+                - location
+                - description 
               properties:
                 userId:
                   type: integer
@@ -272,6 +274,8 @@ paths:
               type: object
               required:
                 - farmName
+                - location
+                - description
               properties:
                 farmName:
                   type: string
@@ -324,16 +328,16 @@ paths:
                     id:
                       type: integer
                       example: 1
-                    usuario_id:
+                    userId:
                       type: integer
                       example: 1
-                    nombre_finca:
+                    farmName:
                       type: string
                       example: "Finca La Esperanza"
-                    ubicacion:
+                    location:
                       type: string
                       example: "Ubicación de la finca"
-                    descripcion:
+                    description:
                       type: string
                       example: "Descripción de la finca"
         '404':
@@ -372,16 +376,16 @@ paths:
                     id:
                       type: integer
                       example: 1
-                    usuario_id:
+                    userId:
                       type: integer
                       example: 1
-                    nombre_finca:
+                    farmName:
                       type: string
                       example: "Finca La Esperanza"
-                    ubicacion:
+                    location:
                       type: string
                       example: "Ubicación de la finca"
-                    descripcion:
+                    description:
                       type: string
                       example: "Descripción de la finca"
         '404':
