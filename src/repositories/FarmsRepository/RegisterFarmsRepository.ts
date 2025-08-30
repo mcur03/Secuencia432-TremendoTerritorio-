@@ -4,13 +4,12 @@ import { RegisterFarmDto } from "../../dto/FarmsDto/RegisterFarmsDto";
 export class RegisterFarmsRepository {
   static async createFarm(farm: RegisterFarmDto) {
     const query = `
-      INSERT INTO fincas (usuario_id, nombre_finca, historia, ubicacion, descripcion)
-      VALUES (?, ?, ?, ?, ?)
+      INSERT INTO farms (id_user, farm_name, location, farm_description)
+      VALUES (?, ?, ?, ?)
     `;
     const values = [
       farm.userId,
       farm.farmName,
-      farm.history || null,
       farm.location || null,
       farm.description || null
     ];

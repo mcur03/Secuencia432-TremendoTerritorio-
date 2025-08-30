@@ -18,13 +18,13 @@ class RegisterUserService {
     const emailExists = await RegisterUserRepository.isEmailTaken(data.email);
     if (emailExists) throw new Error('El correo ya está registrado.');
 
-    const cedulaExists = await RegisterUserRepository.isCedulaTaken(data.cedula);
-    if (cedulaExists) throw new Error('La cédula ya está registrada.');
+    const idNumberExists = await RegisterUserRepository.isIdNumberTaken(data.id_number);
+    if (idNumberExists) throw new Error('El número de identificación ya está registrado.');
 
     // Hashear el PIN
-    // Obtener últimos 4 dígitos de la cédula
-    if (!/^\d{4,}$/.test(data.cedula)) throw new Error('La cédula debe tener al menos 4 dígitos.');
-    const lastFour = data.cedula.slice(-4);
+    // Obtener últimos 4 dígitos del número de identificación
+    if (!/^\d{4,}$/.test(data.id_number)) throw new Error('El número de identificación debe tener al menos 4 dígitos.');
+    const lastFour = data.id_number.slice(-4);
 
     // Hashear el PIN
     const hashedPin = await bcrypt.hash(lastFour, 10);

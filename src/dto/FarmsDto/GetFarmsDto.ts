@@ -1,24 +1,23 @@
-class UpdateFarmDto {
+export class GetFarmDto {
     
-    private _id: string;
+    private _userId: string;
     private _farmName : string;
     private _location?: string;
     private _description?: string;
     
-
     constructor(
-        id:string, farmName : string, location: string,
+        userId:string, farmName : string, location: string,
         description: string,
     ) {
-        this._id = id;
+        this._userId = userId;
         this._farmName = farmName;
         this._location = location;
         this._description = description;
     }
 
     // Getters
-    get id(): string {
-        return this._id;
+    get userId(): string {
+        return this._userId;
     }
     get farmName(): string {
         return this._farmName;
@@ -30,8 +29,8 @@ class UpdateFarmDto {
         return this._description;
     }
     // Setters
-    set id(id:string){
-        this._id = id;
+    set userId(userId:string){
+        this._userId = userId;
     }
     set farmName(farmName: string) {
         this._farmName = farmName;
@@ -43,5 +42,3 @@ class UpdateFarmDto {
         this._description = description;
     }
 };
-
-export default UpdateFarmDto;

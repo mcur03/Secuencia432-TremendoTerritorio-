@@ -7,15 +7,15 @@ const SECRET = process.env.JWT_SECRET || 'default_secret';
 
 export interface JwtPayload {
   id: number;
-  cedula: string;
-  rol: 'campesino' | 'restaurante' | 'usuariofinal' | 'administrador';
+  id_number: string;
+  userRole: 'campesino' | 'restaurante' | 'usuariofinal' | 'administrador';
 }
 
 export function generateToken(user: JwtPayload) {
   const payload = {
     id: user.id,
-    cedula: user.cedula,
-    rol: user.rol
+    id_number: user.id_number,
+    userRole: user.userRole
   };
 
 
