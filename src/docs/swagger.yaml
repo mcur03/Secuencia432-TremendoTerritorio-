@@ -194,6 +194,55 @@ paths:
                   error:
                     type: string
                     example: La imagen ya está asociada a otro usuario
+# Ver perfil de usuario
+  /userProfile:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Usuario
+      summary: Obtener perfil de usuario
+      description: Retorna la información del perfil del usuario autenticado.
+      responses:
+        '200':
+          description: Información del perfil de usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  first_name:
+                    type: string
+                    example: Camila
+                  last_name:
+                    type: string
+                    example: Uribe
+                  email:
+                    type: string
+                    format: email
+                    example: camila01@email.com
+                  id_number:
+                    type: string
+                    example: "1234567890"
+                  user_phone:
+                    type: string
+                    example: "3001234567"
+                  userRole:
+                    type: string
+                    example: "usuariofinal"
+        '401':
+          description: Usuario no autenticado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No autorizado"
 
 # Registro de Fincas
   /register-farm:

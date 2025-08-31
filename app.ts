@@ -9,7 +9,7 @@ import authRoutes from './src/routes/authRouter/authRouter';
 import imagesRouter from "./src/routes/authRouter/imagesRouter";
 
 import registerUserRoutes from './src/routes/userRouter/registerUserRouter';
-import hashPin from './src/routes/botWhatsapp/hashPinRouter';
+import getUserProfileRouter from './src/routes/userRouter/getUserProfileRouter';
 
 import registerFarmsRoutes from './src/routes/farmsRouter/RegisterFarmsRoutes';
 import updateFarmsRoutes from './src/routes/farmsRouter/UpdateFarmsRoutes';
@@ -18,6 +18,7 @@ import getByIdFarmRoutes from './src/routes/farmsRouter/GetByIdFarmRoute';
 import deleteFarmRoutes from './src/routes/farmsRouter/DeleteFarmsRoute';
 
 import uploadImageRouter from './src/routes/botWhatsapp/uploadImageCloudinaryRouter';
+import hashPin from './src/routes/botWhatsapp/hashPinRouter';
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.use('/api/auth', authRoutes);
 
 // users
 app.use('/api', registerUserRoutes);
+app.use('/api', getUserProfileRouter);
 
 // farms
 app.use('/api', registerFarmsRoutes);
