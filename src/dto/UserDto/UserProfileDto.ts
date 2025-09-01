@@ -6,10 +6,11 @@ export class UserProfileDto {
     private _idNumber: string;
     private _email : string;
     private _userPhone: string;
+    private _role: string;
 
     constructor(
         id:string, email : string, firstName: string,
-        lastName: string, userPhone: string, idNumber: string
+        lastName: string, userPhone: string, idNumber: string, role: string
     ) {
         this._id = id;
         this._email = email;
@@ -17,6 +18,7 @@ export class UserProfileDto {
         this._lastName = lastName;
         this._userPhone = userPhone;
         this._idNumber = idNumber;
+        this._role = role;
     }
 
     // Getters
@@ -39,6 +41,10 @@ export class UserProfileDto {
     get idNumber(): string {
         return this._idNumber;
     }
+
+    get role(): string {
+        return this._role;
+    }
     // Setters
     set id(id:string){
         this._id = id;
@@ -57,5 +63,8 @@ export class UserProfileDto {
     }
     set idNumber(idNumber: string) {
         this._idNumber = idNumber;
+    }
+    set role(role: string) {
+        this._role = role;
     }
 };

@@ -1,5 +1,5 @@
 import db from '../../config/db';
-import { RegisterDto } from '../../dto/UserDto/registerDto';
+import { RegisterDto } from '../../dto/UserDto/RegisterUserDto';
 
 class RegisterUserRepository {
 

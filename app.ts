@@ -9,7 +9,9 @@ import authRoutes from './src/routes/authRouter/authRouter';
 import imagesRouter from "./src/routes/authRouter/imagesRouter";
 
 import registerUserRoutes from './src/routes/userRouter/registerUserRouter';
+import updateUserRoutes from './src/routes/userRouter/UpdateUserRouter';
 import getUserProfileRouter from './src/routes/userRouter/getUserProfileRouter';
+import updateUserProfileRouter from './src/routes/userRouter/UpdateProlifeRouter';
 
 import registerFarmsRoutes from './src/routes/farmsRouter/RegisterFarmsRoutes';
 import updateFarmsRoutes from './src/routes/farmsRouter/UpdateFarmsRoutes';
@@ -43,7 +45,10 @@ app.use('/api/auth', authRoutes);
 
 // users
 app.use('/api', registerUserRoutes);
+app.use('/api', updateUserRoutes);
+
 app.use('/api', getUserProfileRouter);
+app.use('/api', updateUserProfileRouter);
 
 // farms
 app.use('/api', registerFarmsRoutes);

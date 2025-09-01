@@ -194,47 +194,83 @@ paths:
                   error:
                     type: string
                     example: La imagen ya está asociada a otro usuario
-# Ver perfil de usuario
-  /userProfile:
-    get:
+# Editar usuario
+  /update-user/{id}:
+    put:
       security:
         - bearerAuth: []
       tags:
         - Usuario
-      summary: Obtener perfil de usuario
-      description: Retorna la información del perfil del usuario autenticado.
+      summary: Actualizar un usuario existente
+      description: Actualiza los datos de un usuario existente identificado por su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID del usuario a actualizar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - first_name
+                - last_name
+                - email
+                - user_phone
+              properties:
+                first_name:
+                  type: string
+                  example: Camila
+                last_name:
+                  type: string
+                  example: "Uribe"
+                email:
+                  type: string
+                  format: email
+                  example: camila01@email.com
+                user_phone:
+                  type: string
+                  example: "3001234567"
       responses:
-        '200':
-          description: Información del perfil de usuario
+        "200":
+          description: Usuario actualizado con éxito.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: integer
-                    example: 1
-                  first_name:
+                  message:
                     type: string
-                    example: Camila
-                  last_name:
+                    example: "EL usuario fue eliminado"
+        "401":
+            description: token inválido o expirado.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: "token inválido o expirado"
+        "403":
+          description: No autorizado, token JWT expirado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
                     type: string
-                    example: Uribe
-                  email:
+                    example: "No autorizado"
+                  error:
                     type: string
-                    format: email
-                    example: camila01@email.com
-                  id_number:
-                    type: string
-                    example: "1234567890"
-                  user_phone:
-                    type: string
-                    example: "3001234567"
-                  userRole:
-                    type: string
-                    example: "usuariofinal"
-        '401':
-          description: Usuario no autenticado
+                    example: "jwt expired"
+        "404":
+          description: Usuario no encontrado.
           content:
             application/json:
               schema:
@@ -242,7 +278,98 @@ paths:
                 properties:
                   error:
                     type: string
+                    example: "Usuario no encontrado"
+        "500":
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno del servidor"
+                  details:
+                    type: string
+                    example: "Bind parameters must not contain undefined. To pass SQL NULL specify JS null"
+# Editar Perfil
+  /update-prolife:
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - Usuario
+      summary: Actualizar perfil de usuario
+      description: Actualiza la información del perfil del usuario autenticado.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - first_name
+                - last_name
+                - email
+                - user_phone
+              properties:
+                first_name:
+                  type: string
+                  example: Camila
+                last_name:
+                  type: string
+                  example: "Uribe"
+                email:
+                  type: string
+                  format: email
+                  example: camila01@email.com
+                user_phone:
+                  type: string
+                  example: "3001234567"
+      responses:
+        "200":
+          description: Usuario actualizado con éxito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Perfil Actualizado con éxito"
+        "401":
+            description: token inválido o expirado.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: "token inválido o expirado"
+        "403":
+          description: No autorizado, token JWT expirado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
                     example: "No autorizado"
+                  error:
+                    type: string
+                    example: "jwt expired"
+        "404":
+          description: Usuario no encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Usuario no encontrado"
 
 # Registro de Fincas
   /register-farm:

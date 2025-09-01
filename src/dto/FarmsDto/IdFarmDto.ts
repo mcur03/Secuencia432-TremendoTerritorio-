@@ -1,20 +1,20 @@
 export class IdFarmDto {
     
-    private _id: string;
+    private _idFarm: number;
     
 
     constructor(
-        id:string
+        idFarm:number
     ) {
-        this._id = id;
+        this._idFarm = idFarm;
     }
 
     // Getters
-    get id(): string {
-        return this._id;
+    get idFarm(): number {
+        return this._idFarm;
     }
     // Setters
-    set id(id:string){
-        this._id = id;
+    set idFarm(idFarm:number){
+        this._idFarm = idFarm;
     }
 };
