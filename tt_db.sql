@@ -1,7 +1,6 @@
 CREATE DATABASE tremendo_territorio;
 USE tremendo_territorio;
 
-
 -- ----- whatsapp_user_states ----------------------------------------------------------------
 CREATE TABLE whatsapp_user_states (
   id SERIAL PRIMARY KEY,
@@ -38,6 +37,7 @@ CREATE TABLE users (
     FOREIGN KEY (selected_image_id) REFERENCES auth_images(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 SELECT * FROM users;
+
 -- ----- Farms -----------------------------------------------------------------------------------
 CREATE TABLE farms (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -48,6 +48,7 @@ CREATE TABLE farms (
     FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 select * from farms;
+
 -- ----- restaurants -----------------------------------------------------------------
 CREATE TABLE restaurants (
     id INT PRIMARY KEY AUTO_INCREMENT,

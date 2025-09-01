@@ -1,5 +1,5 @@
 import db from "../../config/db";
-import { GetFarmDto } from "../../dto/FarmsDto/GetFarmsDto";
+import { GetFarmDto } from "../../dto/FarmsDto/GetAllFarmsDto";
 
 export class GetAllFarmsRepository {
   static async getAllFarms(): Promise<GetFarmDto[]> {

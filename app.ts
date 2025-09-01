@@ -5,19 +5,22 @@ import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
-import authRoutes from './src/routes/authRouter/authRouter';
+import authRouter from './src/routes/authRouter/authRouter';
 import imagesRouter from "./src/routes/authRouter/imagesRouter";
 
-import registerUserRoutes from './src/routes/userRouter/registerUserRouter';
-import updateUserRoutes from './src/routes/userRouter/UpdateUserRouter';
+import registerUserRouter from './src/routes/userRouter/registerUserRouter';
+import getAllUsersRouter from './src/routes/userRouter/getAllUsersRouter';
+import getByIdUserRouter from './src/routes/userRouter/getByIdUserRouter'
+import updateUserRouter from './src/routes/userRouter/UpdateUserRouter';
+import deleteUserRouter from './src/routes/userRouter/DeleteUserRouter';
 import getUserProfileRouter from './src/routes/userRouter/getUserProfileRouter';
 import updateUserProfileRouter from './src/routes/userRouter/UpdateProlifeRouter';
 
-import registerFarmsRoutes from './src/routes/farmsRouter/RegisterFarmsRoutes';
-import updateFarmsRoutes from './src/routes/farmsRouter/UpdateFarmsRoutes';
-import getAllFarmsRoutes from './src/routes/farmsRouter/GetAllFarmsRoutes';
-import getByIdFarmRoutes from './src/routes/farmsRouter/GetByIdFarmRoute';
-import deleteFarmRoutes from './src/routes/farmsRouter/DeleteFarmsRoute';
+import registerFarmsRouter from './src/routes/farmsRouter/RegisterFarmsRoutes';
+import updateFarmsRouter from './src/routes/farmsRouter/UpdateFarmsRoutes';
+import getAllFarmsRouter from './src/routes/farmsRouter/GetAllFarmsRoutes';
+import getByIdFarmRouter from './src/routes/farmsRouter/GetByIdFarmRoute';
+import deleteFarmRouter from './src/routes/farmsRouter/DeleteFarmsRoute';
 
 import uploadImageRouter from './src/routes/botWhatsapp/uploadImageCloudinaryRouter';
 import hashPin from './src/routes/botWhatsapp/hashPinRouter';
@@ -41,21 +44,24 @@ app.get('/', (_req, res) => {
 });
 
 app.use('/api', imagesRouter);
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRouter);
 
 // users
-app.use('/api', registerUserRoutes);
-app.use('/api', updateUserRoutes);
+app.use('/api', registerUserRouter);
+app.use('/api', getAllUsersRouter);
+app.use('/api', getByIdUserRouter);
+app.use('/api', updateUserRouter);
+app.use('/api', deleteUserRouter);
 
 app.use('/api', getUserProfileRouter);
 app.use('/api', updateUserProfileRouter);
 
 // farms
-app.use('/api', registerFarmsRoutes);
-app.use('/api', updateFarmsRoutes);
-app.use('/api', getAllFarmsRoutes);
-app.use('/api', getByIdFarmRoutes);
-app.use('/api', deleteFarmRoutes);
+app.use('/api', registerFarmsRouter);
+app.use('/api', updateFarmsRouter);
+app.use('/api', getAllFarmsRouter);
+app.use('/api', getByIdFarmRouter);
+app.use('/api', deleteFarmRouter);
 
 // Rutas del bot de WhatsApp para hashear el PIN
 app.use('/api/botWhatsapp', hashPin);

@@ -107,7 +107,7 @@ paths:
     get:
       tags:
         - Usuario
-      summary: Obtener imágenes aleatorias disponibles para selección
+      summary: Obtener imágenes aleatorias disponibles para selección para el registro
       description: Retorna 3 imágenes que aún no están asignadas a ningún usuario.
       responses:
         '200':
@@ -194,6 +194,158 @@ paths:
                   error:
                     type: string
                     example: La imagen ya está asociada a otro usuario
+# Obtener todos los usuarios
+  /get-all-users:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Usuario
+      summary: Obtener todos los usuarios como administrador
+      description: Devuelve una lista de todos los usuarios registrados.
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    first_name:
+                      type: string
+                      example: "Camila"
+                    last_name:
+                      type: string
+                      example: "Uribe"
+                    email:
+                      type: string
+                      format: email
+                      example: "camila01@email.com"
+                    id_number:
+                      type: string
+                      example: "1234567890"
+                    user_phone:
+                      type: string
+                      example: "3001234567"
+                    userRole:
+                      type: string
+                      example: "administrador"
+        '404':
+          description: No se encontraron usuarios
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No se encontraron usuarios"
+# Buscar Usuario por id
+  /get-by-id-user/{idUser}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Usuario
+      summary: Obtener un usuario por su ID como administrador
+      description: Devuelve los detalles de un usuario específico identificado por su ID.
+      parameters:
+        - name: idUser
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID del usuario a buscar
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    first_name:
+                      type: string
+                      example: "Camila"
+                    last_name:
+                      type: string
+                      example: "Uribe"
+                    email:
+                      type: string
+                      format: email
+                      example: "camila01@email.com"
+                    id_number:
+                      type: string
+                      example: "1234567890"
+                    user_phone:
+                      type: string
+                      example: "3001234567"
+                    userRole:
+                      type: string
+                      example: "administrador"
+        '404':
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Usuario no encontrado"
+# Ver perfil de usuario
+  /userProfile:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Usuario
+      summary: Obtener perfil de usuario
+      description: Retorna la información del perfil del usuario autenticado.
+      responses:
+        '200':
+          description: Información del perfil de usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  first_name:
+                    type: string
+                    example: Camila
+                  last_name:
+                    type: string
+                    example: Uribe
+                  email:
+                    type: string
+                    format: email
+                    example: camila01@email.com
+                  id_number:
+                    type: string
+                    example: "1234567890"
+                  user_phone:
+                    type: string
+                    example: "3001234567"
+                  userRole:
+                    type: string
+                    example: "usuariofinal"
+        '401':
+          description: Usuario no autenticado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No autorizado"
 # Editar usuario
   /update-user/{id}:
     put:
@@ -201,7 +353,7 @@ paths:
         - bearerAuth: []
       tags:
         - Usuario
-      summary: Actualizar un usuario existente
+      summary: Actualizar un usuario existente como administrador
       description: Actualiza los datos de un usuario existente identificado por su ID.
       parameters:
         - name: id
@@ -370,6 +522,35 @@ paths:
                   error:
                     type: string
                     example: "Usuario no encontrado"
+# Eliminar usuario
+  /delete-user/{idUser}:
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Usuario
+      summary: Eliminar un usuario por su ID como administrador
+      description: Elimina un usuario específico identificado por su ID.
+      parameters:
+        - name: idUser
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID del usuario a eliminar
+      responses:
+        '204':
+          description: Usuario eliminado con éxito
+        '404':
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Usuario no encontrado"
 
 # Registro de Fincas
   /register-farm:
@@ -378,8 +559,8 @@ paths:
         - bearerAuth: []
       tags:
         - Fincas
-      summary: Registrar una nueva finca
-      description: Registra una nueva finca con los datos proporcionados.
+      summary: Registrar una nueva finca como campesino o administrador
+      description: Registra una nueva finca con los datos proporcionados, si es campesino no se envia por el body el userId.
       requestBody:
         required: true
         content:
@@ -433,7 +614,7 @@ paths:
         - bearerAuth: []
       tags:
         - Fincas
-      summary: Actualizar una finca existente
+      summary: Actualizar una finca existente como campesino o administrador
       description: Actualiza los datos de una finca existente identificada por su ID.
       parameters:
         - name: id
@@ -582,7 +763,7 @@ paths:
         - bearerAuth: []
       tags:
         - Fincas
-      summary: Eliminar una finca por su ID
+      summary: Eliminar una finca por su ID como campesino o administrador
       description: Elimina una finca específica identificada por su ID.
       parameters:
         - name: idFarm
