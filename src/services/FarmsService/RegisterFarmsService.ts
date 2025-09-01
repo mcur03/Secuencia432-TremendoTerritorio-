@@ -10,4 +10,13 @@ export class RegisterFarmsService {
       throw new Error("Error registering farm: " + (error as Error).message);
     }
   }
+
+  static async registerFarmPeasant(farm: RegisterFarmDto) {
+    try {
+      const farmId = await RegisterFarmsRepository.createFarmPeasant(farm);
+      return { farmId, ...farm };
+    } catch (error) {
+      throw new Error("Error registering farm: " + (error as Error).message);
+    }
+  }
 }

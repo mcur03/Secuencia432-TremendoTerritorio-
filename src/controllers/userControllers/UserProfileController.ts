@@ -4,13 +4,10 @@ import { UserProfileService } from '../../services/userService/UserProfileServic
 export class UserProfileController {
     static async getUserProfile(req: Request, res: Response) {
         try {
-            if (!req.user) {
-                res.status(401).json({ message: "Usuario no autenticado" });
-                return;
-            }
-            const userId = req.user.id;
+            const { id } = (req as any).user;
+            console.log('ID de usuario extraído del token:', id);
 
-            const userProfile = await UserProfileService.getUserProfile(userId);
+            const userProfile = await UserProfileService.getUserProfile(id);
             if (userProfile) {
                 res.json(userProfile);
             } else {

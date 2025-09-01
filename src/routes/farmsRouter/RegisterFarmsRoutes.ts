@@ -9,4 +9,6 @@ const router = Router();
 // Endpoint para registrar una finca
 router.post('/register-farm', verifyToken, checkRole(['campesino', 'administrador']), validateFarmRegistration, RegisterFarmsController.registerFarm);
 
+// router.post('/register-farm-peasant', verifyToken, checkRole(['campesino', 'administrador']), validateFarmRegistration, RegisterFarmsController.registerFarmPeasant);
+
 export default router;

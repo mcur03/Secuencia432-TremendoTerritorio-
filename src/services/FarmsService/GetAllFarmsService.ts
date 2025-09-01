@@ -1,4 +1,4 @@
-import { GetFarmDto } from "../../dto/FarmsDto/GetFarmsDto";
+import { GetFarmDto } from "../../dto/FarmsDto/GetAllFarmsDto";
 import { GetAllFarmsRepository } from "../../repositories/FarmsRepository/GetAllFarmsRepository";
 
 export class GetAllFarmsService {

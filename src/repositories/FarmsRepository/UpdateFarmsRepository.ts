@@ -7,7 +7,7 @@ export class UpdateFarmRepository {
     const query = `
       UPDATE farms
       SET farm_name = ?, location = ?, farm_description = ?
-      WHERE id = ? AND user_id = ?
+      WHERE id = ? AND id_user = ?
     `;
 
     const values = [

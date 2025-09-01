@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { RegisterDto } from '../../dto/UserDto/registerDto';
+import { RegisterDto } from '../../dto/UserDto/RegisterUserDto';
 import RegisterUserRepository from '../../repositories/userRepository/registerUserRepository';
 
 class RegisterUserService {

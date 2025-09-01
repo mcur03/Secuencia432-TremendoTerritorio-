@@ -5,7 +5,7 @@ export class GetByIdFarmRepository {
   static async getByIdFarm(id: IdFarmDto) {
 
     const query = `SELECT * FROM farms WHERE id = ?`;
-    const values = [id.id];
+    const values = [id.idFarm];
     const [result] = await db.execute(query, values);
     return result as IdFarmDto[];
   }

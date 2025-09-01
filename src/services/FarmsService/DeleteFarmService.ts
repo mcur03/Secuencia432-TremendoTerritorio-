@@ -11,6 +11,7 @@ export class DeleteFarmService {
   }
 
   static async deleteFarmCampesino(id: IdFarmDto, userId: number) {
+    console.log('Eliminando finca como campesino:', id, userId);
     try {
       return await DeleteFarmRepository.deleteFarmCampesino(id, userId);
     } catch (error) {

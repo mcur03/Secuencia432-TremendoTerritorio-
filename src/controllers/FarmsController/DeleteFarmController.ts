@@ -5,14 +5,15 @@ import { IdFarmDto } from "../../dto/FarmsDto/IdFarmDto";
 export class DeleteFarmController {
     static async deleteFarm(req: Request, res: Response) {
         try {
-            const userRole = req.body.role;
-            const userId = req.body.id;
+            const { id, userRole } = (req as any).user;
             const { idFarm } = req.params;
+            console.log('token!!!', userRole, id);
+            console.log('idFarm!!!', idFarm);
 
             const result =
                 userRole === "campesino"
-                    ? await DeleteFarmService.deleteFarmCampesino(new IdFarmDto(idFarm), userId)
-                    : await DeleteFarmService.deleteFarm(new IdFarmDto(idFarm));
+                    ? await DeleteFarmService.deleteFarmCampesino(new IdFarmDto(Number(idFarm)), id)
+                    : await DeleteFarmService.deleteFarm(new IdFarmDto(Number(idFarm)));
 
             if (result === 0) {
                 res.status(404).json({ message: 'Finca no encontrada' });

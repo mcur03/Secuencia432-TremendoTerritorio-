@@ -2,10 +2,6 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { body, validationResult } from "express-validator";
 
 export const validateFarmRegistration: RequestHandler[] = [
-  body("userId")
-    .notEmpty().withMessage("userId es obligatorio")
-    .isInt().withMessage("userId debe ser un número entero"),
-
   body("farmName")
     .notEmpty().withMessage("farmName es obligatorio")
     .isLength({ min: 3, max: 150 }).withMessage("farmName debe tener entre 3 y 150 caracteres"),
